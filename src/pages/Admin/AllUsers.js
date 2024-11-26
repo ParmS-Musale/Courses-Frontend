@@ -9,9 +9,9 @@ const AllUsers = () => {
   // Fetch all users from the backend
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:5020/admin/user", {
+      const response = await axios.get("http://localhost:5020/admin/user",{
         headers: {
-          username: localStorage.getItem("token"),
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       console.log(response);
@@ -28,9 +28,9 @@ const AllUsers = () => {
   const deleteUser = async (userId) => {
     try {
       // Send delete request to backend
-      await axios.delete(`http://localhost:5020/admin/user/${userId}`, {
+      await axios.delete(`http://localhost:5020/admin/user/${userId}`,{
         headers: {
-          username: localStorage.getItem("token"),
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       toast.success("User Deleted Succesfully..!!")

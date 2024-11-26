@@ -23,7 +23,7 @@ function CourseCard({ course }) {
           { courseId: course.id },
           {
             headers: {
-              username: localStorage.getItem("token"),
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );

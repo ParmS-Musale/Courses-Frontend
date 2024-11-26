@@ -1,20 +1,51 @@
 import { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  // const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate(); // Hook to handle navigation
+  const login = async (email, password) => {
+    try {
+      const payload = {
+        Username: email,
+        Password: password,
+      };
+      const res = await axios.post(
+        "http://localhost:5020/user/login",
+
+        payload
+      );
+      //
+      console.log(res);
+
+      if (res.data) {
+        localStorage.setItem("token", res.data.token);
+      toast.success(res.data.message);
+
+      }
+      navigate("/")
+    } catch (error) {
+      // Handle error and display the correct error message
+      console.error("Login Error:", error);
+
+      // Check if error has a response and display the message
+      if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An unexpected error occurred. Please try again.");
+      }
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Assuming login() is a function that handles authentication
-    const data= login(email, password);
-    if(data != null){
-      navigate("/")
-    }
+     login(email, password);
       
   };
 

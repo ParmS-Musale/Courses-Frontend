@@ -1,13 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 
 function Navbar() {
   const token = localStorage.getItem("token");
   const username = token ? localStorage.getItem("username") : null; // Retrieve username from localStorage
-  const role = token ? localStorage.getItem("role") : null; // Retrieve role from localStorage
+  // const role = token ? localStorage.getItem("role") : null; // Retrieve role from localStorage
   const location = useLocation();
+  const [data, setdata] = useState("");
+
   const showSearchBar = location.pathname === "/all-course";
+
+  const fetchUser = async () => {
+    const response = await axios.get(
+      "http://localhost:5020/users/purchase/info",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    setdata(response.data);
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <nav className="bg-white shadow-lg">
@@ -37,7 +58,7 @@ function Navbar() {
           >
             Courses
           </Link>
-          {role === "admin" && (
+          {data.role === "admin" && (
             <Link
               to="/add-course"
               className="text-gray-700 hover:text-blue-600 transition duration-300 text-decoration-none text-xl"
@@ -92,8 +113,10 @@ function Navbar() {
           <div className="flex items-center ml-6">
             <FaUserCircle className="text-gray-700 text-3xl" />
             <div className="ml-2 flex-wr">
-              <span className="block text-gray-800 font-medium">{username}</span>
-              <span className="block text-gray-500 text-sm">{role}</span>
+              <span className="block text-gray-800 font-medium">
+                {data.username}
+              </span>
+              <span className="block text-gray-500 text-sm">{data.role}</span>
             </div>
           </div>
         )}

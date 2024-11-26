@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Navbar from "../../components/Navbar";
 
 const PurchasedCourseCard = () => {
   const [courses, setCourses] = useState([]);
@@ -18,7 +17,7 @@ const PurchasedCourseCard = () => {
     try {
       const response = await axios.get("http://localhost:5020/users/purchase", {
         headers: {
-          username: localStorage.getItem("token"),
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
@@ -41,15 +40,18 @@ const PurchasedCourseCard = () => {
 
     try {
       // Call the DELETE API to remove the course
-      const response = await axios.delete(`http://localhost:5020/users/purchase/${courseId}`, {
-        headers: {
-          username: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.delete(
+        `http://localhost:5020/users/purchase/${courseId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       toast.success(response.data); // Show success message
       // Remove the course from the UI
-      setCourses(courses.filter(course => course.id !== courseId));
+      setCourses(courses.filter((course) => course.id !== courseId));
     } catch (error) {
       console.error("Error deleting course:", error);
       toast.error("Failed to delete the course.");
@@ -62,9 +64,9 @@ const PurchasedCourseCard = () => {
 
   return (
     <>
-      <div>
+      {/* <div>
         <Navbar />
-      </div>
+      </div> */}
       <div className="container my-5">
         <h2 className="text-center mb-4">Your Purchased Courses 📚</h2>
         {loading ? (
@@ -81,10 +83,14 @@ const PurchasedCourseCard = () => {
                     style={{ height: "200px", objectFit: "cover" }}
                   />
                   <div className="card-body d-flex flex-column">
-                    <h5 className="card-title font-weight-bold">{course.title}</h5>
+                    <h5 className="card-title font-weight-bold">
+                      {course.title}
+                    </h5>
                     <p className="card-text text-muted">{course.description}</p>
                     <div className="mt-auto">
-                      <p className="text-primary font-weight-bold">₹ {course.price}</p>
+                      <p className="text-primary font-weight-bold">
+                        ₹ {course.price}
+                      </p>
                       <button
                         className="btn btn-danger w-100"
                         onClick={() => handleDeleteCourse(course.id)} // Delete course when button is clicked

@@ -1,72 +1,90 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const AddCourseForm = () => {
+const UpdateCourseForm = () => {
+  const { id } = useParams(); // Get course ID from URL
   const {
     register,
     handleSubmit,
+    setValue, // For setting initial form values
     formState: { errors },
   } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5020/admin/courses/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        if (response.data) {
+          // Populate the form with course data
+          setValue("title", response.data.title);
+          setValue("description", response.data.description);
+          setValue("courseDescription", response.data.courseDescription);
+          setValue("price", response.data.price);
+          setValue("imageUrl", response.data.imageUrl);
+        }
+      } catch (error) {
+        console.error("Error fetching course:", error);
+        toast.error("Failed to fetch course details.");
+        navigate("/all-course"); // Redirect if course fetch fails
+      }
+    };
+
+    fetchCourse();
+  }, [id, setValue, navigate]);
+
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     setFormError("");
 
-    // Prepare the data to send to the API
     const courseData = {
       title: data.title,
       description: data.description,
       courseDescription: data.courseDescription,
-      price: parseFloat(data.price), // Ensure price is a number
+      price: parseFloat(data.price),
       imageUrl: data.imageUrl,
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:5020/admin/courses",
+      const response = await axios.put(
+        `http://localhost:5020/admin/courses/${id}`,
         courseData,
         {
           headers: {
-            username: localStorage.getItem("token"),
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      console.log(response);
 
-      if (response.data.id) {
-        // Success - Trigger toast
-        toast.success("Course added successfully");
-        navigate("/all-course");
-        // Optionally reset the form or show success message
+      if (response.status === 200) {
+        toast.success("Course updated successfully");
+        navigate("/all-course"); // Redirect to the course list
       } else {
-        // Handle non-successful responses (status not 200)
         throw new Error(response?.data.message);
       }
     } catch (error) {
       setFormError(error.message || "Something went wrong");
-      console.error("Error adding course:", error);
+      console.error("Error updating course:", error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    }
-  }, []);
-
   return (
     <div>
       <div className="max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg mt-10">
         <h2 className="text-3xl font-semibold text-gray-800 mb-8 text-center">
-          Add New Course
+          Update Course
         </h2>
 
         {formError && (
@@ -180,7 +198,7 @@ const AddCourseForm = () => {
               className="w-full bg-gray-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Adding Course..." : "Add Course"}
+              {isSubmitting ? "Updating Course..." : "Update Course"}
             </button>
           </div>
         </form>
@@ -189,4 +207,4 @@ const AddCourseForm = () => {
   );
 };
 
-export default AddCourseForm;
+export default UpdateCourseForm;

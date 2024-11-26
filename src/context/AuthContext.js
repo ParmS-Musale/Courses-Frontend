@@ -6,46 +6,13 @@ import { toast } from "react-toastify";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
 
   const fetchCourese = async () => {
     const response = await axios.get("http://localhost:5020/courses");
     return response.data;
   };
 
-  const login = async (email, password) => {
-    try {
-      const payload = {
-        Username: email,
-        Password: password,
-      };
-      const res = await axios.post(
-        "http://localhost:5020/user/login",
 
-        payload
-      );
-      //
-      console.log(res);
-
-      if (res.data.username) {
-        localStorage.setItem("token", res.data.username);
-        setUser(res.data.username);
-
-        toast.success(res.data.message);
-        return res?.data?.username;
-      }
-    } catch (error) {
-      // Handle error and display the correct error message
-      console.error("Login Error:", error);
-
-      // Check if error has a response and display the message
-      if (error.response && error.response.data.message) {
-        toast.error(error.response.data.message);
-      } else {
-        toast.error("An unexpected error occurred. Please try again.");
-      }
-    }
-  };
 
   const signup = async (email, password) => {
     try {
@@ -81,7 +48,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, fetchCourese }}>
+    <AuthContext.Provider value={{ signup, fetchCourese }}>
       {children}
     </AuthContext.Provider>
   );
