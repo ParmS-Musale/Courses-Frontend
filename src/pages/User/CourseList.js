@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import CourseCard from "../../components/CourseCard";
 import axios from "axios";
+import { Atom } from "react-loading-indicators";
+
 
 function CourseList() {
   const [courses, setcourses] = useState();
@@ -22,7 +24,7 @@ function CourseList() {
     fetchCourese();
   }, []);
 
-  if(loading) return <div>loading.....</div>
+  if(loading) return <div><Atom color="Green" size="large" text="Loading.." textColor="black" /></div>
 
   return (
     <div className="container mx-auto px-4 py-8">

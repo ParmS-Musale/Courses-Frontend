@@ -8,6 +8,8 @@ const Login = () => {
   // const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  
   const navigate = useNavigate(); // Hook to handle navigation
   const login = async (email, password) => {
     try {
@@ -15,6 +17,7 @@ const Login = () => {
         Username: email,
         Password: password,
       };
+      console.log(payload)
       const res = await axios.post(
         "http://localhost:5020/user/login",
 

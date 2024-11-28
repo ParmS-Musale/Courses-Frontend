@@ -15,6 +15,7 @@ function Navbar() {
   const showSearchBar = location.pathname === "/all-course";
 
   const fetchUser = async () => {
+   try {
     const response = await axios.get(
       "http://localhost:5020/users/purchase/info",
       {
@@ -24,6 +25,9 @@ function Navbar() {
       }
     );
     setdata(response.data);
+   } catch (error) {
+    console.log(error)
+   }
   };
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Atom } from "react-loading-indicators";
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
@@ -9,7 +10,7 @@ const AllUsers = () => {
   // Fetch all users from the backend
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:5020/admin/user",{
+      const response = await axios.get("http://localhost:5020/admin/user", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -28,12 +29,12 @@ const AllUsers = () => {
   const deleteUser = async (userId) => {
     try {
       // Send delete request to backend
-      await axios.delete(`http://localhost:5020/admin/user/${userId}`,{
+      await axios.delete(`http://localhost:5020/admin/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      toast.success("User Deleted Succesfully..!!")
+      toast.success("User Deleted Succesfully..!!");
       // Remove the deleted user from the local state
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
     } catch (error) {
@@ -53,7 +54,9 @@ const AllUsers = () => {
         </h1>
 
         {loading ? (
-          <p className="text-center text-gray-500">Loading...</p>
+          <p className="text-center text-gray-500">
+            <Atom color="#32cd32" size="medium" text="" textColor="" />
+          </p>
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white border border-gray-200 rounded-lg">

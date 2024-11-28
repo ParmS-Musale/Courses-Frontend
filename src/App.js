@@ -12,8 +12,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "react-toastify/dist/ReactToastify.css"; // Ensure this is imported
 import AddCourseForm from "./pages/Admin/AddCourse";
 import AllUsers from "./pages/Admin/AllUsers";
-import UpdateCourseForm from "./pages/Admin/UpdateCourseForm ";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,10 +41,7 @@ const router = createBrowserRouter([
     path: "/all-users",
     element: <AllUsers />,
   },
-  {
-    path: "/update-course",
-    element: <UpdateCourseForm />,
-  },
+
 ]);
 
 const App = () => {

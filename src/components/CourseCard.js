@@ -24,7 +24,7 @@ function CourseCard({ course }) {
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
+            },  
           }
         );
 

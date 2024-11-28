@@ -68,7 +68,7 @@ const Dashboard = () => {
           } lg:block`}
         >
           <h2 className="text-2xl font-bold">
-            {userRole === "admin" ? "Admin Panel" : "User Panel"}
+            {userRole == "admin" ? "Admin Panel" : "User Panel"}
           </h2>
           <ul className="mt-6">
             <li>
@@ -91,14 +91,7 @@ const Dashboard = () => {
               </li>
             )}
 
-            <li>
-              <Link
-                to="/update-course"
-                className="block py-2 px-4 text-white rounded text-decoration-none"
-              >
-                Update Course
-              </Link>
-            </li>
+          
           </ul>
         </div>
 
