@@ -7,8 +7,6 @@ function CourseCard({ course }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false); // State to track loading status
 
-
-
   // Handle course purchase
   const handleBuyCourse = async () => {
     const token = localStorage.getItem("token");
@@ -24,11 +22,11 @@ function CourseCard({ course }) {
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },  
+            },
           }
         );
 
-        toast.success(`Successfully purchased ${course.title}!`);
+        toast.success("Successfully purchased..!!");
       } catch (error) {
         console.error("Error purchasing course:", error);
         if (error.response && error.response.data.message) {
@@ -65,7 +63,11 @@ function CourseCard({ course }) {
             disabled={loading} // Disable the button while loading
           >
             {loading ? (
-              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
             ) : (
               "Buy Course"
             )}

@@ -1,69 +1,63 @@
-import { useState, useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
-  // const { login } = useContext(AuthContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const navigate = useNavigate();
 
-  
-  const navigate = useNavigate(); // Hook to handle navigation
   const login = async (email, password) => {
     try {
-      const payload = {
-        Username: email,
-        Password: password,
-      };
-      console.log(payload)
-      const res = await axios.post(
-        "http://localhost:5020/user/login",
-
-        payload
-      );
-      //
-      console.log(res);
+      setIsLoading(true); // Set loading to true when request starts
+      const payload = { Username: email, Password: password };
+      const res = await axios.post("http://localhost:5020/user/login", payload);
 
       if (res.data) {
         localStorage.setItem("token", res.data.token);
-      toast.success(res.data.message);
-
+        toast.success(res.data.message);
+        navigate("/"); // Redirect after successful login
       }
-      navigate("/")
     } catch (error) {
-      // Handle error and display the correct error message
       console.error("Login Error:", error);
-
-      // Check if error has a response and display the message
-      if (error.response && error.response.data.message) {
-        toast.error(error.response.data.message);
-      } else {
-        toast.error("An unexpected error occurred. Please try again.");
-      }
+      const errorMessage =
+        error.response?.data?.message || "An unexpected error occurred.";
+      toast.error(errorMessage);
+    } finally {
+      setIsLoading(false); // Reset loading state after request completes
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Assuming login() is a function that handles authentication
-     login(email, password);
-      
+    login(email, password);
+  };
+
+  const handleGoogleLogin = (response) => {
+    if (response?.credential) {
+      const decoded = jwtDecode(response.credential);
+      console.log(decoded);
+    }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen  bg-gray-800">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-700">Login</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="flex justify-center items-center min-h-screen bg-black">
+      <div className="w-full max-w-md p-8 space-y-6 bg-transparent">
+        <h2 className="text-4xl font-bold text-center text-white mb-8">
+          Login to CourseHub 📚
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 text-gray-800 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
           <div>
@@ -72,22 +66,34 @@ const Login = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 text-gray-800 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isLoading}
+            className="w-full py-3 px-4 text-white bg-green-500 rounded-lg hover:bg-green-600 disabled:bg-gray-400"
           >
-            Login
+            {isLoading ? "Logging in..." : "Log In"}
           </button>
         </form>
-        <p className="text-center text-sm text-gray-500">
-          Don't have an account?{' '}
-          <a href="/signup" className="text-blue-500 hover:text-blue-700">
-            Sign up here
+        <p className="text-center text-sm text-gray-400 mt-4">
+          Don't have an account?{" "}
+          <a href="/signup" className="text-green-500 hover:text-green-400">
+            Sign up
           </a>
         </p>
+        <div className="mt-6">
+          <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
+            <GoogleLogin
+              onSuccess={handleGoogleLogin}
+              onError={() => toast.error("Google Login Failed")}
+              useOneTap
+              shape="pill"
+              className="w-full py-2 text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+            />
+          </GoogleOAuthProvider>
+        </div>
       </div>
     </div>
   );

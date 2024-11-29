@@ -8,11 +8,10 @@ import axios from "axios";
 function Navbar() {
   const token = localStorage.getItem("token");
   const username = token ? localStorage.getItem("username") : null; // Retrieve username from localStorage
-  // const role = token ? localStorage.getItem("role") : null; // Retrieve role from localStorage
   const location = useLocation();
   const [data, setdata] = useState("");
 
-  const showSearchBar = location.pathname === "/all-course";
+  const showSearchBar = location.pathname == "/all-course";
 
   const fetchUser = async () => {
    try {
@@ -62,7 +61,7 @@ function Navbar() {
           >
             Courses
           </Link>
-          {data.role === "admin" && (
+          {data.role == "admin" && (
             <Link
               to="/add-course"
               className="text-gray-700 hover:text-blue-600 transition duration-300 text-decoration-none text-xl"

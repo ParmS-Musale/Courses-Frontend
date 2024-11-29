@@ -41,7 +41,6 @@ const router = createBrowserRouter([
     path: "/all-users",
     element: <AllUsers />,
   },
-
 ]);
 
 const App = () => {

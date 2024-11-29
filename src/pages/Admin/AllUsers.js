@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Atom } from "react-loading-indicators";
+import { Loader } from "../../components/Loader";
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
@@ -55,7 +55,7 @@ const AllUsers = () => {
 
         {loading ? (
           <p className="text-center text-gray-500">
-            <Atom color="#32cd32" size="medium" text="" textColor="" />
+            <Loader/>
           </p>
         ) : (
           <div className="overflow-x-auto">

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AllUsers from "./Admin/AllUsers";
 import PurchasedCourseCard from "./User/UserCourses";
 import Navbar from "../components/Navbar";
+import { Loader } from "../components/Loader";
 
 const Dashboard = () => {
   const [isSidebarOpen] = useState(true);
@@ -27,7 +28,7 @@ const Dashboard = () => {
       setUserRole(role);
 
       // If admin, fetch all users
-      if (role === "admin") {
+      if (role == "admin") {
         const userResponse = await axios.get(
           "http://localhost:5020/admin/user",
           {
@@ -52,7 +53,7 @@ const Dashboard = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><Loader/></div>;
   }
 
   return (
@@ -80,7 +81,7 @@ const Dashboard = () => {
               </Link>
             </li>
 
-            {userRole === "admin" && (
+            {userRole == "admin" && (
               <li>
                 <Link
                   to="/all-users"
@@ -90,14 +91,12 @@ const Dashboard = () => {
                 </Link>
               </li>
             )}
-
-          
           </ul>
         </div>
 
         {/* Main content */}
         <div className="flex-1 p-8">
-          {userRole === "admin" ? (
+          {userRole == "admin" ? (
             <div>
               <AllUsers /> {/* Pass the users array */}
             </div>
