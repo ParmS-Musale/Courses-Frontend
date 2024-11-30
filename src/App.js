@@ -12,6 +12,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "react-toastify/dist/ReactToastify.css"; // Ensure this is imported
 import AddCourseForm from "./pages/Admin/AddCourse";
 import AllUsers from "./pages/Admin/AllUsers";
+import HeroBanner from "./pages/User/HeroBanner";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/all-users",
     element: <AllUsers />,
+  },
+  {
+    path: "/",
+    element: <HeroBanner />,
   },
 ]);
 
