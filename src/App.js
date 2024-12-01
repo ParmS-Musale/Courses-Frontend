@@ -13,6 +13,8 @@ import "react-toastify/dist/ReactToastify.css"; // Ensure this is imported
 import AddCourseForm from "./pages/Admin/AddCourse";
 import AllUsers from "./pages/Admin/AllUsers";
 import HeroBanner from "./pages/User/HeroBanner";
+import About from "./pages/User/About";
+import Contact from "./pages/User/Contact";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +37,10 @@ const router = createBrowserRouter([
     element: <Courses />,
   },
   {
+    path: "/about",
+    element: <About />,
+  },
+  {
     path: "/add-course",
     element: <AddCourseForm />,
   },
@@ -45,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HeroBanner />,
+  },
+  {
+    path: "/contact",
+    element: <Contact />,
   },
 ]);
 

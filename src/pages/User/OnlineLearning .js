@@ -2,86 +2,97 @@ import React from "react";
 
 const OnlineLearning = () => {
   return (
-    <div className="bg-yellow-50 min-h-screen p-8">
-      <header className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-orange-500">
-          Guaranteed & Certified
-        </h1>
-        <h2 className="text-3xl font-bold text-gray-800 mt-4">
-          Online Learning Wherever And Whenever
-        </h2>
-        <p className="text-gray-600 mt-4 mx-10">
-          We don’t just work with concrete and steel. We work with people. We
-          are approachable, with even our highest work. We work with concrete
-          and steel. We work with people.
-        </p>
-      </header>
+    <div className="bg-[#FFFBEA] p-10 lg:p-16 min-h-screen">
+      {/* Hero Section */}
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        {/* Images Section */}
+        <div className="grid grid-cols-2 gap-4">
+          <img
+            src="https://uiparadox.co.uk/public/templates/future-hub/assets/media/course/course-1.png"
+            alt="Learning"
+            className="w-svw rounded-lg shadow-lg"
+          />
+          <img
+            src="https://uiparadox.co.uk/public/templates/future-hub/assets/media/course/course-2.png"
+            alt="Learning"
+            className="w-full rounded-lg shadow-lg"
+          />
+          <img
+            src="https://uiparadox.co.uk/public/templates/future-hub/assets/media/course/course-3.png"
+            alt="Learning"
+            className="w-full rounded-lg shadow-lg"
+          />
+          {/* <img
+            src="https://uiparadox.co.uk/public/templates/future-hub/assets/media/course/course-4.png"
+            alt="Learning"
+            className="w-full rounded-lg shadow-lg"
+          /> */}
+        </div>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-        <div className="feature">
-          <img
-            src="https://uiparadox.co.uk/public/templates/future-hub/assets/media/course/course-1.png
-"
-            alt="Feature 1"
-            className="w-full rounded-lg shadow-md"
-          />
-        </div>
-        <div className="feature">
-          <img
-            src="/path/to/image2.jpg"
-            alt="Feature 2"
-            className="w-full rounded-lg shadow-md"
-          />
-        </div>
-        <div className="feature">
-          <img
-            src="/path/to/image3.jpg"
-            alt="Feature 3"
-            className="w-full rounded-lg shadow-md"
-          />
-        </div>
-        <div className="feature">
-          <img
-            src="/path/to/image4.jpg"
-            alt="Feature 4"
-            className="w-full rounded-lg shadow-md"
-          />
-        </div>
-        <div className="feature">
-          <img
-            src="/path/to/image5.jpg"
-            alt="Feature 5"
-            className="w-full rounded-lg shadow-md"
-          />
+        {/* Text Section */}
+        <div>
+          <p className="text-orange-500 font-bold text-xl mb-2">
+            ✨ Guaranteed & Certified
+          </p>
+          <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 leading-tight">
+            Online Learning <br />
+            <span className="text-green-600">Wherever And Whenever</span>
+          </h1>
+          <p className="text-gray-600 mt-4 text-lg">
+            We don’t just work with concrete and steel. We work with people. We
+            are approachable, with even our highest work. We work with concrete
+            and steel. We work with people.
+          </p>
+
+          {/* Certifications */}
+          <div className="mt-5 flex flex-wrap gap-4">
+            <div className="flex items-center">
+              <img
+                src="https://uiparadox.co.uk/public/templates/future-hub/assets/media/user/test-user-1.png"
+                alt="Certified"
+                className="w-10 h-10 rounded-full border-2 border-green-600"
+              />
+              <span className="ml-2 text-gray-800 font-semibold">
+                Top Instructors
+              </span>
+            </div>
+            <div className="flex items-center">
+              <img
+                src="https://uiparadox.co.uk/public/templates/future-hub/assets/media/user/test-user-2.png"
+                alt="Certified"
+                className="w-10 h-10 rounded-full border-2 border-green-600"
+              />
+              <span className="ml-2 text-gray-800 font-semibold">
+                3020 Online Courses
+              </span>
+            </div>
+            <div className="flex items-center">
+              <img
+                src="https://uiparadox.co.uk/public/templates/future-hub/assets/media/user/test-user-3.png"
+                alt="Certified"
+                className="w-10 h-10 rounded-full border-2 border-green-600"
+              />
+              <span className="ml-2 text-gray-800 font-semibold">
+                6000 Membership
+              </span>
+            </div>
+            <div className="flex items-center">
+              <img
+                src="https://uiparadox.co.uk/public/templates/future-hub/assets/media/course/course-4.png"
+                alt="Certified"
+                className="w-10 h-10 rounded-full border-2 border-green-600"
+              />
+              <span className="ml-2 text-gray-800 font-semibold">
+                Online Certifications
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="flex flex-col items-center mb-10">
-        <div className="bg-white p-4 rounded-full shadow-md mb-4">
-          <img
-            src="/path/to/certified.jpg"
-            alt="Certified"
-            className="w-20 h-20"
-          />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-          <div className="certification-item p-4 bg-white rounded-lg shadow-md">
-            <p className="text-lg font-semibold">Top Instructors</p>
-          </div>
-          <div className="certification-item p-4 bg-white rounded-lg shadow-md">
-            <p className="text-lg font-semibold">3020 Online Courses</p>
-          </div>
-          <div className="certification-item p-4 bg-white rounded-lg shadow-md">
-            <p className="text-lg font-semibold">6000 Membership</p>
-          </div>
-          <div className="certification-item p-4 bg-white rounded-lg shadow-md">
-            <p className="text-lg font-semibold">Online Certifications</p>
-          </div>
-        </div>
-      </section>
-
-      <div className="text-center">
-        <button className="bg-green-500 text-white py-2 px-6 rounded-lg shadow-md hover:bg-green-600">
+      {/* Call-to-Action Button */}
+      <div className="mt-5 text-center">
+        <button className="bg-green-600 text-white py-3 px-8 rounded-lg shadow-md hover:bg-green-700">
           Find Out More
         </button>
       </div>

@@ -58,7 +58,7 @@ function CourseCard({ course }) {
           </p>
           <button
             type="button"
-            className="btn btn-success w-100"
+            className="btn btn-danger w-100"
             onClick={handleBuyCourse}
             disabled={loading} // Disable the button while loading
           >
