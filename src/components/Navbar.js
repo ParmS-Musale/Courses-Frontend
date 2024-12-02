@@ -6,10 +6,13 @@ function Navbar() {
 
   return (
     <nav className="shadow-sm bg-transparent">
-      <div className="container mx-auto flex items-center justify-between py-3 px-6 ">
+      <div className="container mx-auto flex items-center justify-between py-4 px-6 ">
         {/* Logo */}
-        <div className="mr-9">
-          <Link to="/" className="flex items-center text-decoration-none outline-none">
+        <div className="mr-5">
+          <Link
+            to="/"
+            className="flex items-center text-decoration-none outline-none"
+          >
             <img src="assets/Logo.png" alt="Logo" className="w-15 h-10 mr-3" />
             <span className="text-3xl font-bold text-[#FF8C00] ">
               CourseHub
@@ -26,22 +29,22 @@ function Navbar() {
             &#x2022; Home
           </Link>
           <Link
-            to="/courses"
+            to="/all-course"
             className="text-lg text-[#333] hover:text-[#FF8C00] transition text-decoration-none"
           >
             &#x2022; Course
           </Link>
           <Link
-            to="/about"
+            to="/"
             className="text-lg text-[#333] hover:text-[#FF8C00] transition text-decoration-none"
           >
             &#x2022; About Us
           </Link>
           <Link
-            to="/blog"
+            to="/features"
             className="text-lg text-[#333] hover:text-[#FF8C00] transition text-decoration-none"
           >
-            &#x2022; Blog
+            &#x2022; Features
           </Link>
           <Link
             to="/contact"

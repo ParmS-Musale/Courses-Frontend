@@ -15,6 +15,7 @@ import AllUsers from "./pages/Admin/AllUsers";
 import HeroBanner from "./pages/User/HeroBanner";
 import About from "./pages/User/About";
 import Contact from "./pages/User/Contact";
+import Features from "./pages/User/Features";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,10 +37,10 @@ const router = createBrowserRouter([
     path: "/all-course",
     element: <Courses />,
   },
-  {
-    path: "/about",
-    element: <About />,
-  },
+  // {
+  //   path: "/about",
+  //   element: <About />,
+  // },
   {
     path: "/add-course",
     element: <AddCourseForm />,
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: "/all-users",
     element: <AllUsers />,
+  },
+  {
+    path: "/features",
+    element: <Features />,
   },
   {
     path: "/",

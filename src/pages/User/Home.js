@@ -11,7 +11,6 @@ import Testimonials from "./Testimonials";
 const Home = () => {
   return (
     <>
-      {/* Navbar */}
       <div>
         <Navbar />
         <HeroBanner />

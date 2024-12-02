@@ -91,9 +91,6 @@ const Login = () => {
               <label className="flex items-center text-sm text-gray-600">
                 <input type="checkbox" className="mr-2" /> Remember me
               </label>
-              <a href="#" className="text-sm text-blue-500 hover:underline">
-                Forgot password?
-              </a>
             </div>
             {/* Submit Button */}
             <button
