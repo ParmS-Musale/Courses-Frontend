@@ -1,57 +1,60 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ refs }) {
   const token = localStorage.getItem("token");
 
+  const handleScroll = (sectionRef) => {
+    sectionRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
-    <nav className="shadow-sm bg-transparent">
-      <div className="container mx-auto flex items-center justify-between py-4 px-6 ">
+    <nav className="shadow-sm bg-slate-100 sticky top-0 z-50">
+      <div className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
         <div className="mr-5">
-          <Link
-            to="/"
-            className="flex items-center text-decoration-none outline-none"
-          >
+          <span className="flex items-center text-decoration-none outline-none cursor-pointer">
             <img src="assets/Logo.png" alt="Logo" className="w-15 h-10 mr-3" />
-            <span className="text-3xl font-bold text-[#FF8C00] ">
-              CourseHub
-            </span>
-          </Link>
+            <span className="text-3xl font-bold text-[#FF8C00]">CourseHub</span>
+          </span>
         </div>
 
         {/* Navigation Links */}
         <div className="hidden md:flex space-x-8">
-          <Link
-            to="/"
-            className="text-lg text-[#333] hover:text-[#FF8C00] transition text-decoration-none"
+          <button
+            onClick={() => handleScroll(refs.homeRef)}
+            className="text-lg text-[#333] hover:text-[#FF8C00] transition focus:outline-none"
           >
             &#x2022; Home
-          </Link>
-          <Link
-            to="/all-course"
-            className="text-lg text-[#333] hover:text-[#FF8C00] transition text-decoration-none"
-          >
-            &#x2022; Course
-          </Link>
-          <Link
-            to="/"
-            className="text-lg text-[#333] hover:text-[#FF8C00] transition text-decoration-none"
+          </button>
+          <button
+            onClick={() => handleScroll(refs.aboutRef)}
+            className="text-lg text-[#333] hover:text-[#FF8C00] transition focus:outline-none"
           >
             &#x2022; About Us
-          </Link>
-          <Link
-            to="/features"
-            className="text-lg text-[#333] hover:text-[#FF8C00] transition text-decoration-none"
+          </button>
+          <button
+            onClick={() => handleScroll(refs.coursesRef)}
+            className="text-lg text-[#333] hover:text-[#FF8C00] transition focus:outline-none"
+          >
+            &#x2022; Courses
+          </button>
+
+          <button
+            onClick={() => handleScroll(refs.featuresRef)}
+            className="text-lg text-[#333] hover:text-[#FF8C00] transition focus:outline-none"
           >
             &#x2022; Features
-          </Link>
-          <Link
-            to="/contact"
-            className="text-lg text-[#333] hover:text-[#FF8C00] transition text-decoration-none"
+          </button>
+          <button
+            onClick={() => handleScroll(refs.contactRef)}
+            className="text-lg text-[#333] hover:text-[#FF8C00] transition focus:outline-none"
           >
             &#x2022; Contact
-          </Link>
+          </button>
         </div>
 
         {/* Auth Buttons */}
