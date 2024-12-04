@@ -12,7 +12,7 @@ function Navbar({ refs }) {
   };
 
   return (
-    <nav className="shadow-sm bg-slate-100 sticky top-0 z-50">
+    <nav className="shadow-sm bg-slate-50 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
         <div className="mr-5">

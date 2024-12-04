@@ -1,41 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 function CourseCard({ course }) {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false); // State to track loading status
+  const [loading, setLoading] = useState(false);
 
-  // Handle course purchase
   const handleBuyCourse = async () => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      setLoading(true); // Set loading to true when the purchase starts
-
+      setLoading(true);
       try {
-        // Make an API call to purchase the course
         const response = await axios.post(
           "http://localhost:5020/users/purchase",
           { courseId: course.id },
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
 
-        toast.success("Successfully purchased..!!");
+        toast.success("Successfully purchased the course!");
       } catch (error) {
         console.error("Error purchasing course:", error);
-        if (error.response && error.response.data.message) {
-          toast.error(error.response.data.message);
-        } else {
-          toast.error("Failed to purchase course.");
-        }
+        toast.error(
+          error.response?.data?.message || "Failed to purchase the course."
+        );
       } finally {
-        setLoading(false); // Set loading to false once the request is complete
+        setLoading(false);
       }
     } else {
       navigate("/login");
@@ -43,36 +38,37 @@ function CourseCard({ course }) {
   };
 
   return (
-    <div className="w-full sm:w-80 md:w-96 lg:w-1/4 p-3">
-      <div className="card shadow-lg rounded-lg overflow-hidden">
-        <img
-          src={course.imageUrl}
-          className="card-img-top w-full h-48 object-cover"
-          alt={course.title}
-        />
-        <div className="card-body p-3">
-          <h5 className="card-title font-bold text-lg mb-2">{course.title}</h5>
-          <p className="card-text text-gray-700 mb-4">{course.description}</p>
-          <p className="card-text text-gray-700 mb-4">
-            Price: ₹ {course.price}
-          </p>
-          <button
-            type="button"
-            className="btn btn-danger w-100"
-            onClick={handleBuyCourse}
-            disabled={loading} // Disable the button while loading
-          >
-            {loading ? (
-              <span
-                className="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-            ) : (
-              "Buy Course"
-            )}
-          </button>
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transform transition duration-300 ease-in-out">
+      <img
+        src={course.imageUrl}
+        alt={course.title}
+        className="w-full h-52 object-cover"
+      />
+      <div className="p-5">
+        <h5 className="text-xl font-bold text-gray-800 mb-2">{course.title}</h5>
+        <p className="text-gray-600 text-sm mb-4">{course.description}</p>
+        <div className="flex justify-between items-center mb-4">
+          <span className="text-blue-600 font-semibold">₹{course.price}</span>
+          <span className="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full">
+            {course.level}
+          </span>
         </div>
+        <button
+          onClick={handleBuyCourse}
+          className={`w-full bg-orange-600 text-white font-semibold py-2 rounded-lg shadow-md ${
+            loading ? "cursor-not-allowed opacity-75" : "hover:bg-orange-700"
+          }`}
+          disabled={loading}
+        >
+          {loading ? (
+            <div className="flex items-center justify-center">
+              <div className="spinner-border spinner-border-sm mr-2"></div>
+              Processing...
+            </div>
+          ) : (
+            "Buy Course"
+          )}
+        </button>
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ const HeroBanner = () => {
               Explore Courses
             </Link>
             <Link
-              to="/about"
+              to="/"
               className="bg-white border-2 border-[#FF8C00] text-[#FF8C00] py-3 px-5 rounded-full font-medium hover:bg-[#FF8C00] hover:text-black transition duration-300 text-decoration-none"
             >
               Read More
