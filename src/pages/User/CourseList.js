@@ -48,7 +48,7 @@ function CourseList() {
           ))
         ) : (
           <div className="text-center col-span-full">
-            <p className="text-gray-500 text-lg">No courses available right now.</p>
+            <p className="text-gray-500 text-lg"><Loader/></p>
           </div>
         )}
       </div>
