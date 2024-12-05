@@ -16,7 +16,8 @@ const Login = () => {
       setIsLoading(true); // Set loading to true when request starts
       const payload = { Username: email, Password: password };
       const res = await axios.post("http://localhost:5020/user/login", payload);
-
+      console.log(res);
+      
       if (res.data) {
         localStorage.setItem("token", res.data.token);
         toast.success(res.data.message);

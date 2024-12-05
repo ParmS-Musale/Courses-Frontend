@@ -28,7 +28,7 @@ const Dashboard = () => {
       setUserRole(role);
 
       // If admin, fetch all users
-      if (role == "admin") {
+      if (role === "admin") {
         const userResponse = await axios.get(
           "http://localhost:5020/admin/user",
           {
@@ -52,8 +52,16 @@ const Dashboard = () => {
     fetchUserData();
   }, []);
 
+  // Display loader while fetching data
   if (loading) {
-    return <div><Loader/></div>;
+    return (
+      <div
+        className="flex items-center justify-center min-h-screen bg-[#FFFBEA]"
+        style={{ height: "100vh" }}
+      >
+        <Loader />
+      </div>
+    );
   }
 
   return (
@@ -61,48 +69,55 @@ const Dashboard = () => {
       <div>
         <Navbar />
       </div>
-      <div className="flex min-h-screen bg-gray-100">
+      <div className="flex min-h-screen bg-[#FFFBEA]">
         {/* Sidebar */}
         <div
           className={`bg-slate-900 text-white w-64 p-4 ${
             isSidebarOpen ? "block" : "hidden"
           } lg:block`}
         >
-          <h2 className="text-2xl font-bold">
-            {userRole == "admin" ? "Admin Panel" : "User Panel"}
+          <h2 className="text-2xl font-bold text-center text-orange-300">
+            {userRole === "admin" ? "Admin Panel" : "User Panel"}
           </h2>
           <ul className="mt-6">
             <li>
               <Link
                 to="/"
-                className="block py-2 px-4 text-white rounded text-decoration-none"
+                className=" text-white hover:text-[#FF8C00] transition duration-300 text-decoration-none text-xl"
               >
-                Home
+                &#x2022; Home
               </Link>
             </li>
 
-            {userRole == "admin" && (
+            {userRole === "admin" && (
               <li>
                 <Link
                   to="/all-users"
-                  className="block py-2 px-4 text-white rounded text-decoration-none"
+                  className=" text-white hover:text-[#FF8C00] transition duration-300 text-decoration-none text-xl"
                 >
-                  Users
+                  &#x2022; Users
+                </Link>
+                <br />
+                <Link
+                  to="/add-course"
+                  className=" text-white hover:text-[#FF8C00] transition duration-300 text-decoration-none text-xl"
+                >
+                  &#x2022; Add Courses
                 </Link>
               </li>
             )}
           </ul>
         </div>
 
-        {/* Main content */}
+        {/* Main Content */}
         <div className="flex-1 p-8">
-          {userRole == "admin" ? (
+          {userRole === "admin" ? (
             <div>
-              <AllUsers /> {/* Pass the users array */}
+              <AllUsers /> {/* Render admin content */}
             </div>
           ) : (
             <div>
-              <PurchasedCourseCard />
+              <PurchasedCourseCard /> {/* Render user content */}
             </div>
           )}
         </div>

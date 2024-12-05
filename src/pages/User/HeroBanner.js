@@ -30,7 +30,7 @@ const HeroBanner = () => {
           {/* Buttons */}
           <div className="flex justify-center lg:justify-start gap-4">
             <Link
-              to="/all-course"
+              to="/"
               className="bg-[#FF8C00] text-white py-3 px-6 rounded-full font-medium hover:bg-[#e57b00] transition duration-300 text-decoration-none"
             >
               Explore Courses

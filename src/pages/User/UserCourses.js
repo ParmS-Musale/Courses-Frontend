@@ -49,7 +49,7 @@ const PurchasedCourseCard = () => {
         }
       );
 
-      toast.success(response.data); // Show success message
+      toast.success("Course Deleted Successfully"); // Show success message
       // Remove the course from the UI
       setCourses(courses.filter((course) => course.id !== courseId));
     } catch (error) {

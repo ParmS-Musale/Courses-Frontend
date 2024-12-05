@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Navbar from "../../components/Navbar";
 
 const AddCourseForm = () => {
   const {
@@ -13,16 +14,16 @@ const AddCourseForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
   const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     setFormError("");
 
-    // Prepare the data to send to the API
     const courseData = {
       title: data.title,
       description: data.description,
       courseDescription: data.courseDescription,
-      price: parseFloat(data.price), // Ensure price is a number
+      price: parseFloat(data.price),
       imageUrl: data.imageUrl,
     };
 
@@ -36,15 +37,11 @@ const AddCourseForm = () => {
           },
         }
       );
-      console.log(response);
 
       if (response.data.id) {
-        // Success - Trigger toast
         toast.success("Course added successfully");
         navigate("/all-course");
-        // Optionally reset the form or show success message
       } else {
-        // Handle non-successful responses (status not 200)
         throw new Error(response?.data.message);
       }
     } catch (error) {
@@ -63,49 +60,51 @@ const AddCourseForm = () => {
   }, []);
 
   return (
+    <>
     <div>
-      <div className="max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg mt-10">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-8 text-center">
-          Add New Course
+      <Navbar/>
+    </div>
+    <div className="container mx-auto px-6 py-10 bg-[#FFFBEA]">
+      <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8">
+        <h2 className="text-4xl font-semibold text-center text-gray-800 mb-6">
+          Add <span className="text-orange-500">New Course</span>
         </h2>
 
         {formError && (
-          <div className="text-red-600 mb-6 text-center">
-            <p>{formError}</p>
+          <div className="bg-red-100 text-red-600 p-4 rounded-md mb-4 text-center">
+            {formError}
           </div>
         )}
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Title */}
-          <div className="mb-6">
-            <label className="block text-lg font-medium text-gray-700 mb-2">
+          {/* Course Title */}
+          <div>
+            <label className="block text-lg font-medium text-gray-700">
               Course Title
             </label>
             <input
               type="text"
               {...register("title", { required: "Course title is required" })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
               placeholder="Enter course title"
             />
             {errors.title && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.title.message}
-              </p>
+              <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
             )}
           </div>
 
-          {/* Description */}
-          <div className="mb-6">
-            <label className="block text-lg font-medium text-gray-700 mb-2">
-              Description
+          {/* Short Description */}
+          <div>
+            <label className="block text-lg font-medium text-gray-700">
+              Short Description
             </label>
             <input
               type="text"
               {...register("description", {
-                required: "Description is required",
+                required: "Short description is required",
               })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-              placeholder="Enter a brief description"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
+              placeholder="Enter a short description"
             />
             {errors.description && (
               <p className="text-red-500 text-sm mt-1">
@@ -114,17 +113,17 @@ const AddCourseForm = () => {
             )}
           </div>
 
-          {/* Course Description */}
-          <div className="mb-6">
-            <label className="block text-lg font-medium text-gray-700 mb-2">
-              Course Description
+          {/* Detailed Description */}
+          <div>
+            <label className="block text-lg font-medium text-gray-700">
+              Detailed Description
             </label>
             <textarea
               {...register("courseDescription", {
-                required: "Course description is required",
+                required: "Detailed description is required",
               })}
               rows="4"
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
               placeholder="Enter detailed course description"
             />
             {errors.courseDescription && (
@@ -135,8 +134,8 @@ const AddCourseForm = () => {
           </div>
 
           {/* Price */}
-          <div className="mb-6">
-            <label className="block text-lg font-medium text-gray-700 mb-2">
+          <div>
+            <label className="block text-lg font-medium text-gray-700">
               Price
             </label>
             <input
@@ -145,39 +144,35 @@ const AddCourseForm = () => {
                 required: "Price is required",
                 valueAsNumber: true,
               })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-              placeholder="Enter price"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
+              placeholder="Enter course price"
             />
             {errors.price && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.price.message}
-              </p>
+              <p className="text-red-500 text-sm mt-1">{errors.price.message}</p>
             )}
           </div>
 
           {/* Image URL */}
-          <div className="mb-6">
-            <label className="block text-lg font-medium text-gray-700 mb-2">
+          <div>
+            <label className="block text-lg font-medium text-gray-700">
               Image URL
             </label>
             <input
               type="text"
               {...register("imageUrl", { required: "Image URL is required" })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none"
               placeholder="Enter image URL"
             />
             {errors.imageUrl && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.imageUrl.message}
-              </p>
+              <p className="text-red-500 text-sm mt-1">{errors.imageUrl.message}</p>
             )}
           </div>
 
           {/* Submit Button */}
-          <div className="flex justify-center">
+          <div className="text-center">
             <button
               type="submit"
-              className="w-full bg-gray-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-4 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-orange-300 disabled:opacity-50"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Adding Course..." : "Add Course"}
@@ -186,6 +181,7 @@ const AddCourseForm = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 
