@@ -6,13 +6,10 @@ import { toast } from "react-toastify";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
   const fetchCourese = async () => {
     const response = await axios.get("http://localhost:5020/courses");
     return response.data;
   };
-
-
 
   const signup = async (email, password) => {
     try {

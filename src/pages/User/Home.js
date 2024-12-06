@@ -1,4 +1,4 @@
-import React, { useRef,useEffect} from "react";
+import React, { useRef, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import HeroBanner from "./HeroBanner";
 import Features from "./Features";
@@ -11,22 +11,15 @@ import Contact from "./Contact";
 const Home = () => {
   // Create refs for each section
 
-  const homeRef =     useRef(null);
-  const coursesRef =  useRef(null);
-  const aboutRef =    useRef(null);
+  const homeRef = useRef(null);
+  const coursesRef = useRef(null);
+  const aboutRef = useRef(null);
   const featuresRef = useRef(null);
-  const contactRef =  useRef(null);
-  const testoRef =    useRef(null);
+  const contactRef = useRef(null);
+  const testoRef = useRef(null);
 
-  console.log(homeRef)
-  console.log(coursesRef)
-  console.log(aboutRef)
+  useEffect(() => {}, [homeRef]);
 
-
-  useEffect(()=>{
-    
-  },[homeRef])
-  
   return (
     <div>
       {/* Pass refs to Navbar */}
@@ -45,9 +38,6 @@ const Home = () => {
       <div ref={homeRef}>
         <HeroBanner />
       </div>
-      {/* <div ref={coursesRef}>
-        <OnlineLearning />
-      </div> */}
       <div ref={aboutRef}>
         <About />
       </div>

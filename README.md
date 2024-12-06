@@ -29,13 +29,13 @@ Ensure relational integrity, implement search functionality, and add authenticat
 
 ## Overview of the 2nd Task
 
-### Problem Statement:
-Build a backend service using .NET and Entity Framework to perform CRUD operations on entities within a PostgreSQL database.  
+<!-- ### Problem Statement: -->
+<!-- Build a backend service using .NET and Entity Framework to perform CRUD operations on entities within a PostgreSQL database.  
 The service should manage related data with:
 - One-to-one relationships
 - One-to-many relationships
 - Many-to-many relationships  
-Ensure relational integrity, implement search functionality, and add authentication for secure resource access.
+Ensure relational integrity, implement search functionality, and add authentication for secure resource access. -->
 
 ### What I Make:
 - Sign Up Page

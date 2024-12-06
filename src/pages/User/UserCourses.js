@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Loader } from "../../components/Loader";
+
 
 const PurchasedCourseCard = () => {
   const [courses, setCourses] = useState([]);
@@ -64,13 +66,11 @@ const PurchasedCourseCard = () => {
 
   return (
     <>
-      {/* <div>
-        <Navbar />
-      </div> */}
+
       <div className="container my-5">
         <h2 className="text-center mb-4">Your Purchased Courses 📚</h2>
         {loading ? (
-          <p className="text-center">Loading...</p>
+          <p className="text-center"><Loader/></p>
         ) : courses.length > 0 ? (
           <div className="row">
             {courses.map((course) => (

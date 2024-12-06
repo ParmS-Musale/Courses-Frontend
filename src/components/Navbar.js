@@ -16,7 +16,7 @@ function Navbar({ refs }) {
           },
         }
       );
-      debugger
+      debugger;
       setdata(response.data);
     } catch (error) {
       console.log(error);
@@ -39,10 +39,13 @@ function Navbar({ refs }) {
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
         <div className="mr-5">
-          <span className="flex items-center text-decoration-none outline-none cursor-pointer">
+          <Link
+            to="/"
+            className="flex items-center text-decoration-none outline-none cursor-pointer"
+          >
             <img src="assets/Logo.png" alt="Logo" className="w-15 h-10 mr-3" />
             <span className="text-3xl font-bold text-[#FF8C00]">CourseHub</span>
-          </span>
+          </Link>
         </div>
 
         {/* Navigation Links */}
