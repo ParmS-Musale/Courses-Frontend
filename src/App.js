@@ -59,7 +59,13 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <div>
-      <ToastContainer />
+      <ToastContainer
+        position="top-center" // Center position for the toast container
+        autoClose={3000}
+        // hideProgressBar={true}
+        closeOnClick
+        rtl={false}
+      />
       <AuthProvider>
         <RouterProvider router={router}></RouterProvider>
       </AuthProvider>

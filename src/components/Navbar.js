@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
+
 import axios from "axios";
 
 function Navbar({ refs }) {
   const token = localStorage.getItem("token");
   const [data, setdata] = useState("");
+  const [isOnline, setIsOnline] = useState(window.navigator.onLine); // Added state for online/offline status
+
+  console.log(data);
 
   const fetchUser = async () => {
     try {
@@ -16,7 +21,7 @@ function Navbar({ refs }) {
           },
         }
       );
-      debugger;
+
       setdata(response.data);
     } catch (error) {
       console.log(error);
@@ -25,6 +30,19 @@ function Navbar({ refs }) {
 
   useEffect(() => {
     fetchUser();
+
+    // Adding event listeners for online and offline events
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      // Cleanup event listeners on unmount
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
   }, []);
 
   const handleScroll = (sectionRef) => {
@@ -119,6 +137,27 @@ function Navbar({ refs }) {
             </Link>
           )}
         </div>
+        {/* User Icon and Details */}
+        {token && (
+          <div className="flex items-center ml-1 relative">
+            <div className="relative">
+              {/* User Icon */}
+              <FaUserCircle className="text-gray-700 text-4xl" />
+              {/* Online/Offline Status */}
+              <span
+                className={`absolute top-5 left-5 h-4 w-4 rounded-full border-2 border-white ${isOnline ? "bg-green-500" : "bg-red-500"
+                  }`}
+              ></span>
+            </div>
+            <div className="ml-2 flex-wr">
+              <span className="block text-gray-800 font-medium">
+                {data.username}
+              </span>
+              <span className="block text-gray-500 text-sm">{data.role}</span>
+            </div>
+          </div>
+        )}
+
       </div>
     </nav>
   );

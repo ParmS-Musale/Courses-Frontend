@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import moment from 'moment';
+
 
 function CourseCard({ course }) {
   const navigate = useNavigate();
@@ -9,7 +11,6 @@ function CourseCard({ course }) {
 
   const handleBuyCourse = async () => {
     const token = localStorage.getItem("token");
-
     if (token) {
       setLoading(true);
       try {
@@ -22,6 +23,7 @@ function CourseCard({ course }) {
             },
           }
         );
+        console.log(response);
 
         toast.success("Successfully purchased the course!");
       } catch (error) {
@@ -44,20 +46,19 @@ function CourseCard({ course }) {
         alt={course.title}
         className="w-full h-52 object-cover"
       />
-      <div className="p-5">
+      <div className="p-5 ">
         <h5 className="text-xl font-bold text-gray-800 mb-2">{course.title}</h5>
         <p className="text-gray-600 text-sm mb-4">{course.description}</p>
         <div className="flex justify-between items-center mb-4">
           <span className="text-blue-600 font-semibold">₹{course.price}</span>
-          <span className="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full">
-            {course.level}
+          <span className="bg-blue-100 text-gray-600 text-xs font-bold rounded-full">
+            {moment(course.updatedAt).format('DD MMM YYYY, hh:mm A')}
           </span>
         </div>
         <button
           onClick={handleBuyCourse}
-          className={`w-full bg-orange-600 text-white font-semibold py-2 rounded-lg shadow-md ${
-            loading ? "cursor-not-allowed opacity-75" : "hover:bg-orange-700"
-          }`}
+          className={`w-full bg-orange-600 text-white font-semibold py-2 rounded-lg shadow-md ${loading ? "cursor-not-allowed opacity-75" : "hover:bg-orange-700"
+            }`}
           disabled={loading}
         >
           {loading ? (

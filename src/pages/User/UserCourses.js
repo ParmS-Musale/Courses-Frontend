@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Loader } from "../../components/Loader";
+import moment from "moment";
 
 
 const PurchasedCourseCard = () => {
@@ -51,12 +52,12 @@ const PurchasedCourseCard = () => {
         }
       );
 
-      toast.success("Course Deleted Successfully"); // Show success message
+      toast.success("Course Remove Successfully"); // Show success message
       // Remove the course from the UI
       setCourses(courses.filter((course) => course.id !== courseId));
     } catch (error) {
-      console.error("Error deleting course:", error);
-      toast.error("Failed to delete the course.");
+      console.error("Error Removing course:", error);
+      toast.error("Failed to Remove the course.");
     }
   };
 
@@ -66,38 +67,35 @@ const PurchasedCourseCard = () => {
 
   return (
     <>
-
       <div className="container my-5">
         <h2 className="text-center mb-4">Your Purchased Courses 📚</h2>
         {loading ? (
-          <p className="text-center"><Loader/></p>
+          <p className="text-center"><Loader /></p>
         ) : courses.length > 0 ? (
           <div className="row">
             {courses.map((course) => (
               <div className="col-12 col-md-6 col-lg-4 mb-4" key={course.id}>
-                <div className="card h-100 shadow-lg rounded">
+                <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transform transition duration-300 ease-in-out h-100 d-flex flex-column">
                   <img
-                    src={course.imageUrl || "https://via.placeholder.com/150"}
-                    className="card-img-top"
+                    src={course.imageUrl}
                     alt={course.title}
-                    style={{ height: "200px", objectFit: "cover" }}
+                    className="w-full h-52 object-cover"
                   />
-                  <div className="card-body d-flex flex-column">
-                    <h5 className="card-title font-weight-bold">
-                      {course.title}
-                    </h5>
-                    <p className="card-text text-muted">{course.description}</p>
-                    <div className="mt-auto">
-                      <p className="text-primary font-weight-bold">
-                        ₹ {course.price}
-                      </p>
-                      <button
-                        className="btn btn-danger w-100"
-                        onClick={() => handleDeleteCourse(course.id)} // Delete course when button is clicked
-                      >
-                        Delete Course
-                      </button>
+                  <div className="p-5 flex-grow-1 d-flex flex-column">
+                    <h5 className="text-xl font-bold text-gray-800 mb-2">{course.title}</h5>
+                    <p className="text-gray-600 text-sm mb-4 flex-grow-1">{course.description}</p>
+                    <div className="flex justify-between items-center mb-3">
+                      <span className="text-blue-600 font-semibold">₹{course.price}</span>
+                      <span className="bg-blue-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">
+                        {moment(course.updatedAt).format('DD MMM YYYY, hh:mm A')}
+                      </span>
                     </div>
+                    <button
+                      className="btn btn-danger w-100"
+                      onClick={() => handleDeleteCourse(course.id)} // Delete course when button is clicked
+                    >
+                      Remove Course
+                    </button>
                   </div>
                 </div>
               </div>
@@ -108,6 +106,7 @@ const PurchasedCourseCard = () => {
         )}
       </div>
     </>
+
   );
 };
 

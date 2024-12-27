@@ -56,7 +56,7 @@ const Contact = () => {
           <ul className="space-y-6">
             <li className="flex items-center">
               <div className="w-10 h-10 flex items-center justify-center bg-purple-100 text-purple-500 rounded-full">
-                📧
+              📧
               </div>
               <div className="ml-4">
                 <p className="text-gray-600 font-medium">Email Us:</p>
@@ -65,7 +65,7 @@ const Contact = () => {
             </li>
             <li className="flex items-center">
               <div className="w-10 h-10 flex items-center justify-center bg-green-100 text-green-500 rounded-full">
-                📞
+              ☎️
               </div>
               <div className="ml-4">
                 <p className="text-gray-600 font-medium">Call Us:</p>

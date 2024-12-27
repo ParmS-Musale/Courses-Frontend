@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Loader } from "../../components/Loader";
+import Navbar from "../../components/Navbar";
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
@@ -48,6 +49,7 @@ const AllUsers = () => {
 
   return (
     <>
+
       <div className="max-w-5xl mx-auto mt-12 p-6 bg-gray-50 shadow-lg rounded-lg">
         <h1 className="text-3xl font-semibold text-gray-800 mb-8 text-center">
           All Registered Users
@@ -55,7 +57,7 @@ const AllUsers = () => {
 
         {loading ? (
           <p className="text-center text-gray-500">
-            <Loader/>
+            <Loader />
           </p>
         ) : (
           <div className="overflow-x-auto">
