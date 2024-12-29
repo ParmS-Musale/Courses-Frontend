@@ -52,7 +52,7 @@ function CourseCard({ course }) {
         <div className="flex justify-between items-center mb-4">
           <span className="text-blue-600 font-semibold">₹{course.price}</span>
           <span className="bg-blue-100 text-gray-600 text-xs font-bold rounded-full">
-            {moment(course.updatedAt).format('DD MMM YYYY, hh:mm A')}
+            {course.createdAt ? moment(course.createdAt).calendar() : "Just now"}
           </span>
         </div>
         <button
