@@ -55,6 +55,7 @@ function Navbar({ refs }) {
   return (
     <nav className="shadow-sm bg-slate-50 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
+
         {/* Logo */}
         <div className="mr-5">
           <Link
@@ -108,6 +109,27 @@ function Navbar({ refs }) {
           </Link>
         </div>
 
+        {/* User Icon and Details */}
+        {token && (
+          <div className="flex items-center ml-1 relative">
+            <div className="relative">
+              {/* User Icon */}
+              <FaUserCircle className="text-gray-700 text-4xl" />
+              {/* Online/Offline Status */}
+              <span
+                className={`absolute top-5 left-5 h-4 w-4 rounded-full border-2 border-white ${isOnline ? "bg-green-500" : "bg-red-500"
+                  }`}
+              ></span>
+            </div>
+            <div className="ml-2 flex-wr">
+              <span className="block text-gray-800 font-medium">
+                {data.username}
+              </span>
+              <span className="block text-gray-500 text-sm">{data.role}</span>
+            </div>
+          </div>
+        )}
+
         {/* Auth Buttons */}
         <div className="space-x-4">
           {!token ? (
@@ -137,26 +159,6 @@ function Navbar({ refs }) {
             </Link>
           )}
         </div>
-        {/* User Icon and Details */}
-        {token && (
-          <div className="flex items-center ml-1 relative">
-            <div className="relative">
-              {/* User Icon */}
-              <FaUserCircle className="text-gray-700 text-4xl" />
-              {/* Online/Offline Status */}
-              <span
-                className={`absolute top-5 left-5 h-4 w-4 rounded-full border-2 border-white ${isOnline ? "bg-green-500" : "bg-red-500"
-                  }`}
-              ></span>
-            </div>
-            <div className="ml-2 flex-wr">
-              <span className="block text-gray-800 font-medium">
-                {data.username}
-              </span>
-              <span className="block text-gray-500 text-sm">{data.role}</span>
-            </div>
-          </div>
-        )}
 
       </div>
     </nav>

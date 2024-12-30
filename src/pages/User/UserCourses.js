@@ -86,9 +86,9 @@ const PurchasedCourseCard = () => {
                     <p className="text-gray-600 text-sm mb-4 flex-grow-1">{course.description}</p>
                     <div className="flex justify-between items-center mb-3">
                       <span className="text-blue-600 font-semibold">₹{course.price}</span>
-                      <span className="bg-blue-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">
+                      {/* <span className="bg-blue-100 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">
                         {moment(course.updatedAt).format('DD MMM YYYY, hh:mm A')}
-                      </span>
+                      </span> */}
                     </div>
                     <button
                       className="btn btn-danger w-100"
